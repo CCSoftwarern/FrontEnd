@@ -1,0 +1,25 @@
+
+<body>
+    <div class="page">
+        <form [formGroup]="loginform"  (ngSubmit)="onLogin()" class="formLogin">
+            <h1>Login</h1>
+            <p>Digite os seus dados de acesso no campo abaixo.</p>
+            <label for="usuario" >Usuário</label>
+            <input type="text" placeholder="Digite seu usuário" formControlName="usuario"  autofocus="true" [disabled]="isloading"/>
+            <label for="senha">Senha</label>
+            <input type="password" placeholder="Digite seu e-mail" formControlName="senha"  [disabled]="isloading" />
+            <a href="/">Esqueci minha senha</a>
+
+            <button type="submit" value="Acessar" [disabled]="isloading" class="btn">
+                @if (isloading) {
+            <i class="spinner-border spinner-border-sm"></i>
+            Carregando...
+                }@else {
+                    Acessar
+                }
+            </button>
+        </form>
+    </div>
+
+</body>
+

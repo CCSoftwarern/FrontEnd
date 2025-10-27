@@ -1,0 +1,199 @@
+
+<body>
+
+<!-- Exibe o nome e saldo -->
+<div  class="container info-correntista mt-2">
+  <p><strong>Correntista:</strong> {{correntistas[0].nomecorrentista}} </p>
+  <p><strong>Saldo:</strong> {{ correntistas[0].saldo| currency:'BRL':'symbol' }}</p>
+  <div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-danger" (click)="open(sacar)" [disabled]="correntistas[0].saldo <= 0">Sacar</button>
+  <button type="button" class="btn btn-primary"(click)="open(deposito)">Depositar</button>
+  <button type="button" class="btn btn btn-warning" (click)="open(transferir)" [disabled]="correntistas[0].saldo <= 0">Transferir</button>
+  <button type="button" class="btn btn-success" (click)="open(pagar)" [disabled]="correntistas[0].saldo <= 0">Pagar</button>
+</div>
+</div>
+
+<div class="container">
+  <div >
+    <h3>Extrato</h3>
+  </div>
+  <table>
+    <thead>
+      <tr>
+         <th>Movimentação ID</th>
+        <th>Beneficiário ID</th>
+        <th>Correntista ID</th>
+        <th>Data Operação</th>
+        <th>Descrição</th>
+        <th>Nome Beneficiário</th>
+        <th>Nome Correntista</th>
+        <th>Tipo Operação</th>
+        <th>Valor Operação</th>
+      </tr>
+    </thead>
+    <tbody>
+    @if (movimentacoes!=null) {
+         @for (item of movimentacoes; track $index) {
+        <tr>
+            <td>{{ item.MovimentacaoID }}</td>
+            <td>{{ item.BeneficiarioID }}</td>
+            <td>{{ item.CorrentistaID }}</td>
+            <td class="data">{{ item.DataOperacao | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+            <td>{{ item.Descricao }}</td>
+            <td>{{ item.NomeBeneficiario }}</td>
+            <td>{{ item.NomeCorrentista }}</td>
+            <td>{{ item.TipoOperacao }}</td>
+            <td class="valor">{{ item.ValorOperacao | currency:'BRL' }}</td>
+    
+        </tr>
+    }
+
+    }@else {
+        <h2>Nenhum registro</h2>
+    }
+   
+    </tbody>
+  </table>
+</div>
+
+</body>
+
+<ng-template #sacar let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Realizar um Saque</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="saqueform" (ngSubmit)="onSacar()">
+			<div class="mb-3">
+				<label for="sacar">Valor de Saque</label>
+				<div class="input-group">
+					<input
+						id="sacar"
+						class="form-control"
+						placeholder="R$ 0,00"
+						name="sacar"
+						formControlName="valor"
+            type="number"
+	
+					/>
+			</div>
+      </div>
+                  <button type="submit" class="btn btn-danger">Sacar</button>
+		</form>
+	</div>
+</ng-template>
+
+<!-- Modal Deposito -->
+ 
+<ng-template #deposito let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Depósitar</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="depositoform" (ngSubmit)="onDepositar()">
+			<div class="mb-3">
+				<label for="sacar">Valor do depósito</label>
+				<div class="input-group">
+					<input
+						id=""
+						class="form-control"
+						placeholder="R$ 0,00"
+						name="valor_deposito"
+						formControlName="valor_deposito"
+            type="number"
+	
+					/>
+			</div>
+      </div>
+                  <button type="submit" class="btn btn-primary">Depositar</button>
+		</form>
+	</div>
+</ng-template>
+
+
+<!-- Modal transferencia -->
+ 
+<ng-template #transferir let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Transferir</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="transferirform" (ngSubmit)="onTransferir()">
+			<div class="mb-3">
+				<label for="valor_transferencia">Valor da transferência</label>
+				<div class="input-group">
+					<input
+						id=""
+						class="form-control"
+						placeholder="R$ 0,00"
+						name="valor_transferencia"
+						formControlName="valor_transferencia"
+            type="number"
+	
+					/>
+			</div>
+      <div class="mb-3">
+				<label for="correntista_destino">Conta de destino</label>
+				<div class="input-group">
+					<input
+						id=""
+						class="form-control"
+						placeholder="R$ 0,00"
+						name="correntista_destino"
+						formControlName="correntista_destino"
+            type="number"
+	
+					/>
+			</div>
+      </div>
+      </div>
+                  <button type="submit" class="btn btn-warning">Transferir</button>
+		</form>
+	</div>
+</ng-template>
+
+
+<!-- Modal Pagamento -->
+ 
+<ng-template #pagar let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Pagamento</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="pagarform" (ngSubmit)="onPagar()">
+			<div class="mb-3">
+				<label for="valor_pagamento">Valor do pagamento</label>
+				<div class="input-group">
+					<input
+						id=""
+						class="form-control"
+						placeholder="R$ 0,00"
+						name="valor_pagamento"
+						formControlName="valor_pagamento"
+            type="number"
+	
+					/>
+			</div>
+      <div class="mb-3">
+				<label for="descricao">Descricao do pagamento</label>
+				<div class="input-group">
+					<input
+						id=""
+						class="form-control"
+						placeholder="Descreva o pagamento"
+						name="descricao"
+						formControlName="descricao"
+            type="text"
+
+					/>
+			</div>
+      </div>
+      </div>
+                  <button type="submit" class="btn btn-success">Pagar</button>
+		</form>
+	</div>
+</ng-template>
