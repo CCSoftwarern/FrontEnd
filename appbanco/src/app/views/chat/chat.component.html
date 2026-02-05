@@ -1,0 +1,28 @@
+<div class="chat-container">
+
+  <div class="chat-header">
+    <h3>💬 Chat</h3>
+  </div>
+
+  <div class="chat-messages">
+    @for (msg of mensagens; track $index) {
+      <div class="message" [class.me]="msg.autor === 'me'">
+        <div class="bubble">
+          {{ msg.texto }}
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="chat-input">
+    <input
+      type="text"
+      [(ngModel)]="mensagem"
+      placeholder="Digite uma mensagem"
+      (keyup.enter)="enviar()"
+    />
+    <button (click)="enviar()">Enviar</button>
+  </div>
+
+</div>
+

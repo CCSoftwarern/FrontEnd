@@ -1,0 +1,76 @@
+.chat-container {
+  width: 360px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.chat-header {
+  background: #075e54;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  background: #ece5dd;
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+/* minhas mensagens → direita */
+.message.me {
+  justify-content: flex-end;
+}
+
+/* bolha padrão (recebida) */
+.bubble {
+  max-width: 75%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+}
+
+/* bolha enviada */
+.message.me .bubble {
+  background: #dcf8c6;
+  border-bottom-right-radius: 0;
+}
+
+/* bolha recebida */
+.message:not(.me) .bubble {
+  border-bottom-left-radius: 0;
+}
+
+.chat-input {
+  display: flex;
+  padding: 8px;
+  border-top: 1px solid #ddd;
+  background: #f0f0f0;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  margin-left: 8px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  background: #075e54;
+  color: white;
+}

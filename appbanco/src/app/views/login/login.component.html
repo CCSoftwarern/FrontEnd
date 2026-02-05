@@ -1,25 +1,35 @@
-
 <body>
     <div class="page">
-        <form [formGroup]="loginform"  (ngSubmit)="onLogin()" class="formLogin">
+        <form [formGroup]="loginform" (ngSubmit)="onLogin()" class="formLogin">
             <h1>Login</h1>
             <p>Digite os seus dados de acesso no campo abaixo.</p>
-            <label for="usuario" >Usuário</label>
-            <input type="text" placeholder="Digite seu usuário" formControlName="usuario"  autofocus="true" [disabled]="isloading"/>
+            <label for="usuario">Usuário</label>
+            <input type="text" placeholder="Digite seu usuário" formControlName="usuario" autofocus="true"
+                [disabled]="isloading" />
             <label for="senha">Senha</label>
-            <input type="password" placeholder="Digite seu e-mail" formControlName="senha"  [disabled]="isloading" />
+            <input type="password" placeholder="Digite seu e-mail" formControlName="senha" [disabled]="isloading" />
             <a href="/">Esqueci minha senha</a>
 
             <button type="submit" value="Acessar" [disabled]="isloading" class="btn">
                 @if (isloading) {
-            <i class="spinner-border spinner-border-sm"></i>
-            Carregando...
+                <i class="spinner-border spinner-border-sm"></i>
+                Carregando...
                 }@else {
-                    Acessar
+                Acessar
                 }
             </button>
         </form>
+        <!-- <input type="text" [(ngModel)]="mensagem" placeholder="Digite uma mensagem" />
+        <button (click)="enviar()">Enviar Mensagem WebSocket</button> -->
+        <button (click)="onOpenChat()">Abrir Tela de Chat</button>
+        <h3>Mensagens recebidas</h3>
+        <ul>
+            @for (msg of recebidas; track $index) {
+            <li>
+                <strong>{{ msg.type }}:</strong> {{ msg.message }}
+            </li>
+            }
+        </ul>
     </div>
 
 </body>
-
